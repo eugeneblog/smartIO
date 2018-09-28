@@ -1,69 +1,72 @@
 <template>
-    <div class="main">
-        <el-row>
-            <el-col :span="24"><div class="grid-content bg-purple-dark"></div></el-col>
-            </el-row>
-            <el-row>
-            <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
-            </el-row>
-            <el-row>
-            <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-            </el-row>
-            <el-row>
-            <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="6"><div class="grid-content bg-purple-light"></div></el-col>
-            <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="6"><div class="grid-content bg-purple-light"></div></el-col>
-            </el-row>
-            <el-row>
-            <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
-            <el-col :span="4"><div class="grid-content bg-purple-light"></div></el-col>
-        </el-row>
-    </div>
+  <div class="main">
+    <el-container>
+        <el-header>
+            <home-header @btnChange="handleBtnChange"></home-header>
+        </el-header>
+        <el-container>
+            <home-aside :isCollapse="isCollapse"></home-aside>
+            <el-main>
+                <home-main></home-main>
+            </el-main>
+        </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
+import HomeHeader from './commponents/Header'
+import HomeAside from './commponents/HomeAside'
+import HomeMain from './commponents/Main'
 export default {
   name: 'Home',
-  data: function () {
-    return { visible: false }
+  components: {
+    HomeHeader,
+    HomeAside,
+    HomeMain
+  },
+  data () {
+    return { 
+      visible: false,
+      isCollapse: false
+    }
+  },
+  methods: {
+    handleBtnChange (btn) {
+        this.isCollapse = !btn
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "~styles/index.scss"; //引入全局样式
-    .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-        margin-bottom: 0;
-        }
+    @import "~styles/index.scss"; //引入全局样式
+    .el-header, .el-footer {
+        background-color: #ffffff;
+        color: #333;
+        text-align: center;
+        line-height: 60px;
     }
-    .el-col {
-        border-radius: 4px;
+    .el-aside {
+        background-color: #ffffff;
+        color: #333;
+        text-align: center;
+        line-height: 200px;
     }
-    .bg-purple-dark {
-        background: #99a9bf;
+    .el-main {
+        background-color: #E9EEF3;
+        color: #333;
+        text-align: center;
+        line-height: 160px;
     }
-    .bg-purple {
-        background: #d3dce6;
+    body > .el-container {
+        margin-bottom: 40px;
     }
-    .bg-purple-light {
-        background: #e5e9f2;
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+        line-height: 260px;
     }
-    .grid-content {
-        border-radius: 4px;
-        min-height: 36px;
-    }
-    .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
+    .el-container:nth-child(7) .el-aside {
+        line-height: 320px;
     }
 </style>

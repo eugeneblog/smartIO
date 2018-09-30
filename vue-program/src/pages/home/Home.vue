@@ -26,14 +26,14 @@ export default {
     HomeMain
   },
   data () {
-    return { 
+    return {
       visible: false,
       isCollapse: false
     }
   },
   methods: {
     handleBtnChange (btn) {
-        this.isCollapse = !btn
+      this.isCollapse = !btn
     }
   }
 }
@@ -46,6 +46,7 @@ export default {
         color: #333;
         text-align: center;
         line-height: 60px;
+        padding: 0px;
     }
     .el-aside {
         background-color: #ffffff;

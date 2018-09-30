@@ -1,101 +1,118 @@
 <template>
-    <div>
-        <el-button 
-        :class="{ 'el-button-unfold': classObject.isUnfold }" 
-        :icon="iconStyle" 
-        circle 
+    <div class="header-box">
+        <div class="header-left" :class="{ 'logo-shrink':!classObject.isUnfold }">
+            <div>
+                <img src="" alt="">
+            </div>
+        </div>
+        <el-button
+        :class="{ 'el-button-unfold': classObject.isUnfold }"
+        :icon="iconStyle"
+        circle
         @click="handleClick"></el-button>
-        <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo el-menu-layout"
-        mode="horizontal"
-        @select="handleSelect"
-        >
-            <el-menu-item
-            v-if="!item.children"
-            v-for="item in items"
-            :index="String(item.id)"
-            :key="item.index">
-                {{item.text}}
-            </el-menu-item>
-            <el-dropdown
-            v-if="item.children"
-            v-for="item in items"
-            :key="item.index">
-                <span class="el-dropdown-link">
-                    {{item.text}}<i class="el-icon-arrow-down el-icon--right"></i>
+        <div class=" el-menu-layout">
+            <el-tooltip class="item" effect="dark" :content="changeFullScreenTip" placement="bottom-start">
+                <div class="el-menu-full-screen">
+                    <i class="el-icon-rank" @click="fullScreenHandle"></i>
+                </div>
+            </el-tooltip>
+            <el-dropdown>
+                <span class="el-dropdown-link el-dropdown-user">
                 </span>
+                <i class="el-icon-caret-bottom el-icon--right"></i>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item
-                    v-for="childrenItem in item.children"
-                    :key="childrenItem.id">{{ childrenItem.text }}</el-dropdown-item>
+                    <el-dropdown-item>aa</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-        </el-menu>
+        </div>
     </div>
 </template>
 
 <script>
+import { mixinsScreen } from '@/library/screen'
 export default {
+  mixins: [ mixinsScreen ],
   name: 'HomeHeader',
   data () {
     return {
-      items: [
-        { id: 1, text: '处理中心', href: 'home.msg' },
-        { id: 2, text: '个人中心', href: 'home.user' },
-        { id: 3, text: '下拉菜单', href: 'null', children: [
-          { id: 1, text: 'a1', href: 'aa' },
-          { id: 2, text: 'a2', href: 'aa' },
-          { id: 3, text: 'a3', href: 'aa' },
-          { id: 4, text: 'a4', href: 'aa' }
-        ]}
-      ],
       classObject: {
         isUnfold: true
       },
       iconStyle: 'el-icon-caret-left',
-      activeIndex: '1',
-      activeIndex2: '1'
-    }
-  },
-  methods: {
-    handleSelect (key, keyPath) {
-      var _this = this
-      console.log(_this.$route.path)
-      console.log(key, keyPath)
-    },
-    handleClick () {
-      this.classObject.isUnfold = !this.classObject.isUnfold
-      this.$emit('btnChange',this.classObject.isUnfold)
-      if(!this.classObject.isUnfold){
-        this.iconStyle = "el-icon-caret-right"
-      }else{
-        this.iconStyle = "el-icon-caret-left"
+      fullScreen: {
+        isFullScreen: false
       }
     }
   },
-  mounted () {
-      var _this = this
+  computed: {
+    changeFullScreenTip () {
+      if (!this.fullScreen.isFullScreen) {
+        this.fullScreen.text = '全屏显示'
+        return this.fullScreen.text
+      } else {
+        this.fullScreen.text = '退出全屏'
+        return this.fullScreen.text
+      }
+    }
+  },
+  methods: {
+    handleClick () { // 折叠导航栏
+      this.classObject.isUnfold = !this.classObject.isUnfold
+      this.$emit('btnChange', this.classObject.isUnfold)
+      if (!this.classObject.isUnfold) {
+        this.iconStyle = 'el-icon-caret-right'
+      } else {
+        this.iconStyle = 'el-icon-caret-left'
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+    .header-box {
+        position: relative;
+        height: 60px;
+    }
     .el-button {
         position: absolute;
-        left: 66px;
-        top: 20px;
+        left: 80px;
+        top: 14px;
     }
-    .el-button-unfold{
-        left: 202px;
+    .el-button-unfold {
+        left: 214px;
     }
     .el-menu-layout {
         float: right;
+        height: 100%;
+        & > .el-dropdown {
+            padding: 0 10px;
+        }
     }
-    .el-menu-layout > .el-menu-item , .el-menu-layout > .el-dropdown {
-        margin: 0 10px;
+    .el-menu-full-screen {
+        height: 100%;
+        width: 50px;
+        font-size: 24px;
+        color: rgb(94, 94, 94);
+        float: left;
+        cursor: pointer;
     }
-    .el-menu-layout > .el-dropdown {
-        padding: 0 20px;
+    .header-left {
+        width: 200px;
+        background: rgb(30, 150, 255);
+        float: left;
+    }
+    .logo-shrink {
+        width: 65px;
+    }
+    .el-dropdown-user {
+        position: relative;
+        top: 5px;
+        display: inline-block;
+        line-height: 60px;
+        width: 42px;
+        height: 42px;
+        background: rgb(30, 150, 255);
+        border-radius: 50%;
     }
 </style>

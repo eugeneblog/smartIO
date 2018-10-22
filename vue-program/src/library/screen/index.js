@@ -2,7 +2,7 @@ export const mixinsScreen = {
   methods: {
     fullScreenHandle (e) {
       let elem = document.documentElement
-      let isFullScreen = this.fullScreen.isFullScreen
+      let isFullScreen = this.isFullScreen
       if (!isFullScreen) {
         if (elem.requestFullscreen) {
           elem.requestFullscreen()
@@ -13,7 +13,7 @@ export const mixinsScreen = {
         } else if (elem.msRequestFullscreen) {
           elem.msRequestFullscreen()
         }
-        this.fullScreen.isFullScreen = !this.fullScreen.isFullScreen
+        this.isFullScreen = !this.isFullScreen
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen()
@@ -24,7 +24,7 @@ export const mixinsScreen = {
         } else if (document.msExitFullscreen) {
           document.msExitFullscreen()
         }
-        this.fullScreen.isFullScreen = !this.fullScreen.isFullScreen
+        this.isFullScreen = !this.isFullScreen
       }
     }
   }

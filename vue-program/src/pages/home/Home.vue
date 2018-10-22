@@ -1,5 +1,4 @@
 <template>
-  <div class="main">
     <el-container>
         <el-header>
             <home-header @btnChange="handleBtnChange"></home-header>
@@ -11,12 +10,11 @@
             </el-main>
         </el-container>
     </el-container>
-  </div>
 </template>
 
 <script>
 import HomeHeader from './commponents/Header'
-import HomeAside from './commponents/HomeAside'
+import HomeAside from './aside/HomeAside'
 import HomeMain from './commponents/Main'
 export default {
   name: 'Home',
